@@ -1,0 +1,27 @@
+.App {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.App .column {
+  width: 30%;
+}
+
+.droppable-col {
+  width: 100%;
+  background-color: grey;
+  padding: 10px 10px 0 10px;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column; 
+}
+
+.item {
+  margin-bottom: 10px;
+  color: aliceblue;
+  border: 1px solid aliceblue;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+}
