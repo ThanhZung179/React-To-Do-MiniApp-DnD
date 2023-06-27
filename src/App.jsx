@@ -15,6 +15,7 @@ const item2 = {
 };
 
 function App() {
+  const [text, setText] = useState([])
   const [state, setState] = useState({
     todo: {
       title: "Todo",
@@ -58,15 +59,41 @@ function App() {
     });
   };
 
+  const addItem = () => {
+    setState(prev => {
+      return {
+        ...prev,
+        todo: {
+          title: 'Todo',
+          items: [
+            {
+              id: v4(),
+              name: text
+            },
+            ...prev.todo.items
+          ]
+        }
+      }
+    })
+    setText("")
+  }
+
   return (
     <div className="App">
+      <div>
+
+
+        <input type='text' value={text} onChange={(e) => setText(e.target.value)} />
+        <button onClick={addItem}>Add</button>
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         {_.map(state, (data, key) => {
           return (
             <div key={key} className={"column"}>
               <h3>{data.title}</h3>
               <Droppable droppableId={key}>
-                {(provided) => (
+                {(provided, snapshot) => (
+                  console.log(snapshot),
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
@@ -79,9 +106,10 @@ function App() {
                           index={index}
                           draggableId={el.id}
                         >
-                          {(provided) => (
+                          {(provided, snapshot) => (
+                            console.log(snapshot),
                             <div
-                              className="item"
+                              className={`item ${snapshot.isDragging && 'dragging'}`}
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
